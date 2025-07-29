@@ -1,45 +1,46 @@
 #include "LoginSystem.h"
 #include <iostream>
+#include <fmt/core.h>
 
 bool LoginSystem::registerUser(const std::string& username, const std::string& password) {
     if (username.empty() || password.empty()) {
-        std::cout << "用户名或密码不能为空！\n";
+        fmt::print("用户名或密码不能为空！\n");
         return false;
     }
 
     if (userExists(username)) {
-        std::cout << "用户名已存在！\n";
+        fmt::print( "用户名已存在！\n");
         return false;
     }
 
     users[username] = User(username, password);
-    std::cout << "注册成功！\n";
+    fmt::print( "注册成功！\n");
     return true;
 }
 
 bool LoginSystem::loginUser(const std::string& username, const std::string& password) {
     if (!userExists(username)) {
-        std::cout << "用户不存在！\n";
+        fmt::print( "用户不存在！\n");
         return false;
     }
 
     User user = users[username];
     if (user.getPassword() == password) {
         currentUser = username;
-        std::cout << "登录成功！欢迎，" << username << "！\n";
+        fmt::print( "登录成功！欢迎，%s! \n",username);
         return true;
     } else {
-        std::cout << "密码错误！\n";
+        fmt::print("密码错误！\n");
         return false;
     }
 }
 
 void LoginSystem::logoutUser() {
     if (!currentUser.empty()) {
-        std::cout << "用户 " << currentUser << " 已登出。\n";
+        fmt::print( "用户 %s 已登出。\n",currentUser);
         currentUser.clear();
     } else {
-        std::cout << "当前无用户登录。\n";
+        fmt::print("当前无用户登录。\n");
     }
 }
 

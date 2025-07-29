@@ -16,6 +16,6 @@ std::string User::getPassword() const {
     return password;
 }
 
-void User::setPassword(const std::string &pwd) {
+void User::setPassword(const std::string& pwd) {
     password = pwd;
 }
